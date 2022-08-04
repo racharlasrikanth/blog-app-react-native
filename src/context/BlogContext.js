@@ -28,14 +28,16 @@ const initialObj = {
 };
 
 const addBlogPost = (dispatch) => {
-  return () => {
+  return (title, content, navigateToHome) => {
     dispatch({
       type: ADD_BLOG,
       payload: {
-        title: "hello i am srikanth racharla how are you",
+        title: title,
         id: new Date().getTime().toString(),
+        content: content,
       },
     });
+    navigateToHome();
   };
 };
 

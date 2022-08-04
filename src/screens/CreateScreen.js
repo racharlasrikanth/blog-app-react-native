@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,9 @@ import {
 } from "react-native";
 import { Context as BlogContext } from "../context/BlogContext";
 
-const CreateScreen = () => {
+const CreateScreen = ({ navigation }) => {
+  const { addBlogPost } = useContext(BlogContext);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -33,7 +35,15 @@ const CreateScreen = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.primaryBtn}>
+        <TouchableOpacity
+          disabled={!title || !content}
+          style={styles.primaryBtn}
+          onPress={() => {
+            addBlogPost(title, content, () => {
+              navigation.navigate("IndexScreen");
+            });
+          }}
+        >
           <Text style={{ ...styles.label, ...styles.btnText }}>
             Enter Content
           </Text>

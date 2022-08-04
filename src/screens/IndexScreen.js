@@ -11,11 +11,14 @@ import { Context as BlogContext } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = ({ navigation }) => {
-  const { blogPosts, addBlogPost, deleteBlogPost } = useContext(BlogContext);
+  const { blogPosts, deleteBlogPost } = useContext(BlogContext);
 
   return (
     <View style={{ margin: 15 }}>
-      <Text>IndexScreen {blogPosts.length}</Text>
+      <Text style={styles.blogCountTitle}>
+        We are showing <Text style={styles.blogCount}>{blogPosts.length}</Text>{" "}
+        blogs
+      </Text>
       <FlatList
         keyExtractor={(eachObj) => eachObj.id}
         data={blogPosts}
@@ -36,7 +39,6 @@ const IndexScreen = ({ navigation }) => {
           );
         }}
       />
-      <Button title="add" onPress={addBlogPost} />
     </View>
   );
 };
@@ -62,6 +64,8 @@ const styles = StyleSheet.create({
     shadowColor: "#3333333c",
     shadowOpacity: 0.5,
     shadowRadius: 4,
+    borderColor: "#3333332a",
+    borderWidth: 1,
   },
   title: {
     fontSize: 20,
@@ -76,6 +80,15 @@ const styles = StyleSheet.create({
   createIcon: {
     marginRight: 15,
     fontSize: 30,
+    fontWeight: "bold",
+    color: "green",
+  },
+  blogCountTitle: {
+    fontSize: 18,
+    letterSpacing: 1,
+    marginBottom: 15,
+  },
+  blogCount: {
     fontWeight: "bold",
     color: "green",
   },
