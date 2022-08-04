@@ -41,6 +41,16 @@ const IndexScreen = ({ navigation }) => {
   );
 };
 
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate("CreateScreen")}>
+        <Feather style={styles.createIcon} name="plus" />
+      </TouchableOpacity>
+    ),
+  };
+};
+
 const styles = StyleSheet.create({
   eachBlog: {
     flexDirection: "row",
@@ -62,6 +72,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "red",
     marginLeft: 10,
+  },
+  createIcon: {
+    marginRight: 15,
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "green",
   },
 });
 
