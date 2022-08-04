@@ -1,10 +1,15 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+import { BlogContext } from "../context/BlogContext";
 
 const IndexScreen = () => {
+  const { blogPosts, addBlogPost } = useContext(BlogContext);
+  console.log(blogPosts);
+
   return (
     <View>
-      <Text>IndexScreen</Text>
+      <Text>IndexScreen {blogPosts.length}</Text>
+      <Button title="add" onPress={addBlogPost} />
     </View>
   );
 };
