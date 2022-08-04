@@ -1,7 +1,5 @@
-import React, { useReducer } from "react";
 import { ADD_BLOG } from "./../utils/constants";
-
-export const BlogContext = React.createContext();
+import createDataContext from "./createDataContext";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -16,20 +14,18 @@ const reducer = (state, action) => {
   }
 };
 
-export const BlogProvider = ({ children }) => {
-  const initialObj = {
-    blogPosts: [],
-  };
+const initialObj = {
+  blogPosts: [],
+};
 
-  const [state, dispatch] = useReducer(reducer, initialObj);
-
-  const addBlogPost = () => {
+const addBlogPost = (dispatch) => {
+  return () => {
     dispatch({ type: ADD_BLOG, payload: { title: "hello" } });
   };
-
-  return (
-    <BlogContext.Provider value={{ ...state, addBlogPost }}>
-      {children}
-    </BlogContext.Provider>
-  );
 };
+
+export const { Context, Provider } = createDataContext(
+  reducer,
+  { addBlogPost },
+  initialObj
+);

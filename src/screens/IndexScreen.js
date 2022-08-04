@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import { BlogContext } from "../context/BlogContext";
+import { Context as BlogContext } from "../context/BlogContext";
 
 const IndexScreen = () => {
   const { blogPosts, addBlogPost } = useContext(BlogContext);
