@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Context as BlogContext } from "../context/BlogContext";
+import { Feather } from "@expo/vector-icons";
 
 const SingleBlogScreen = ({ navigation }) => {
   const { blogPosts } = useContext(BlogContext);
@@ -20,6 +21,16 @@ const SingleBlogScreen = ({ navigation }) => {
   );
 };
 
+SingleBlogScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate("EditScreen")}>
+        <Feather style={styles.editIcon} name="edit" />
+      </TouchableOpacity>
+    ),
+  };
+};
+
 const styles = StyleSheet.create({
   blogContainer: {
     margin: 15,
@@ -36,6 +47,12 @@ const styles = StyleSheet.create({
     textDecorationStyle: "solid",
     textDecorationLine: "underline",
     textDecorationColor: "green",
+  },
+  editIcon: {
+    marginRight: 15,
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "green",
   },
 });
 
