@@ -1,4 +1,4 @@
-import { ADD_BLOG, DELETE_BLOG } from "./../utils/constants";
+import { ADD_BLOG, DELETE_BLOG, EDIT_BLOG } from "./../utils/constants";
 import createDataContext from "./createDataContext";
 
 const reducer = (state, action) => {
@@ -18,13 +18,33 @@ const reducer = (state, action) => {
         ...state,
         blogPosts: filteredBlogs,
       };
+
+    case EDIT_BLOG:
+      const updatedBlogPosts = state.blogPosts.map((eachBlog) => {
+        if (eachBlog.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return eachBlog;
+        }
+      });
+      return {
+        ...state,
+        blogPosts: updatedBlogPosts,
+      };
+
     default:
       return state;
   }
 };
 
 const initialObj = {
-  blogPosts: [],
+  blogPosts: [
+    {
+      id: "sdfs",
+      title: "hello",
+      content: "welcome",
+    },
+  ],
 };
 
 const addBlogPost = (dispatch) => {
@@ -50,8 +70,15 @@ const deleteBlogPost = (dispatch) => {
   };
 };
 
+const editBlogPost = (dispatch) => {
+  return (id, title, content, navigateToHome) => {
+    dispatch({ type: EDIT_BLOG, payload: { id, title, content } });
+    navigateToHome();
+  };
+};
+
 export const { Context, Provider } = createDataContext(
   reducer,
-  { addBlogPost, deleteBlogPost },
+  { addBlogPost, deleteBlogPost, editBlogPost },
   initialObj
 );

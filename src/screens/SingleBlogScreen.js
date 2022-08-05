@@ -24,7 +24,13 @@ const SingleBlogScreen = ({ navigation }) => {
 SingleBlogScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
-      <TouchableOpacity onPress={() => navigation.navigate("EditScreen")}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("EditScreen", {
+            id: navigation.getParam("id"),
+          })
+        }
+      >
         <Feather style={styles.editIcon} name="edit" />
       </TouchableOpacity>
     ),

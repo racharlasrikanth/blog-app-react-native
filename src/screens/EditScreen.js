@@ -3,13 +3,21 @@ import { StyleSheet } from "react-native";
 import { Context as BlogContext } from "../context/BlogContext";
 import BlogPostForm from "../components/BlogPostForm";
 
-const CreateScreen = ({ navigation }) => {
-  const { addBlogPost } = useContext(BlogContext);
+const EditScreen = ({ navigation }) => {
+  const { blogPosts, editBlogPost } = useContext(BlogContext);
+
+  const id = navigation.getParam("id");
+
+  const singleBlogPost = blogPosts.find((eachPost) => eachPost.id === id);
 
   return (
     <BlogPostForm
+      initialValues={{
+        title: singleBlogPost.title,
+        content: singleBlogPost.content,
+      }}
       onSubmit={(title, content) => {
-        addBlogPost(title, content, () => navigation.navigate("IndexScreen"));
+        editBlogPost(id, title, content, () => navigation.pop());
       }}
     />
   );
@@ -50,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateScreen;
+export default EditScreen;
